@@ -54,8 +54,22 @@ use FormBuilderTrait;
             ],
         ];
     }
-
 ```
+In your blade file you can use like this
+```
+{!!Form::model($model,['url'=>"/post"])!!}
+{!!$model->generateForm()!!}
+{!!Form::cSubmit()!!}
+{!!Form::close()!!}
+```
+or
+```
+{!!Form::open(['url'=>"/post"])!!}
+{!!$model->generateForm()!!}
+{!!Form::cSubmit()!!}
+{!!Form::close()!!}
+```
+
 ## Change log
 
 Please see the [changelog](changelog.md) for more information on what has changed recently.
