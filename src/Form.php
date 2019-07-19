@@ -1,0 +1,75 @@
+<?php
+
+namespace erdemozveren\LaravelMacros;
+
+use Illuminate\Database\Eloquent\Model;
+use ErrorException;
+use Collective\Html\FormFacade as cForm;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+
+class Form
+{
+    // Build form from given model with some options
+    public static function buildFromModel(Model $model,array $options=[]) {
+        if(!method_exists($model,"formFields")) throw new ErrorException("Model do not have formField method.Check Docs about formFields method.");
+        $options=array_replace_recursive($model->formFields(),$options);
+        $form="";
+        $extraOptions=[];
+        // wildCard will be applied all inputs
+        $wildCard=isset($options["*"]) ? $options["*"]:[];
+        // exclude given elements
+        if(isset($options["_exclude"])) {
+            foreach ($options["_exclude"] as $value) {
+                unset($options[$value]);
+            }
+        }
+        foreach ($options as $key => $val) {
+            if($key=="*"||$key=="_exclude") continue;
+            if(!empty($wildCard)) {
+                $val=array_replace_recursive($val,$wildCard);
+            }
+            $inputOptions=isset($val["options"]) ? $val["options"] : [];
+            
+            $placeholder=isset($val["placeholder"]) ? $val["placeholder"] : null;
+            switch ($val["type"]) {
+                case 'select':
+                   $form.=cForm::{"c".ucfirst($val["type"])}($key,$val["label"],$val["data"],$val["data_key"],$val["data_value"],$inputOptions);
+                break;
+                case 'password':
+                   $form.=cForm::{"c".ucfirst($val["type"])}($key,$val["label"],$placeholder,$inputOptions);
+                break;
+                case 'checkbox':
+                case 'radio':
+                   $form.=cForm::{"c".ucfirst($val["type"])}($key,$val["label"],$val["value"],$val["checked"]);
+                break;
+                case 'color':
+                case 'number':
+                case 'file';
+                   $form.=cForm::{"c".ucfirst($val["type"])}($key,$val["label"],$inputOptions);
+                break;
+                // other elements share the same parameters.
+                default:
+                $form.=cForm::{"c".ucfirst($val["type"])}($key,$val["label"],$placeholder,$inputOptions);
+                break;
+            }
+        }
+        return $form;
+    }
+    // disabled for now
+    // public static function proccessRequest(Model $model,Request $request,array $options=[]) {
+    //     if(!method_exists($model,"formFields")) throw new ErrorException("Model do not have formField method.Check Docs about formFields method.");
+    //     $fields=array_replace_recursive($model->formFields(),$options);
+    //     // exclude given fields
+    //     if(isset($options["_exclude"])) {
+    //         foreach ($options["_exclude"] as $value) {
+    //             unset($fields[$value]);
+    //         }
+    //     }
+    //     $inputs = $request->only(array_keys($fields));
+    //     $validator = Validator::make($inputs,$rules);
+    //     foreach ($inputs as $key => $value) {
+    //         $model->{$key} = $value;
+    //     }
+    // }
+}
