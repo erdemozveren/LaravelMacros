@@ -16,7 +16,46 @@ $ composer require erdemozveren/laravelmacros
 ```
 
 ## Usage
+###Form Builder
+in your model file
+```use erdemozveren\LaravelMacros\Traits\FormBuilderTrait;```
+in model class 
+```
+use FormBuilderTrait;
+// Form fields
+    public function formFields() {
+        return [
+            "*"=>[ // wildcard will be applied to all elements 
+                "options"=>
+                ["style"=>"color:red!important"]
+            ],
+            "parent_id"=>[ // "parent_id" is the name attribute
+                "type"=>"select", // input type
+                "label"=>"Parent", // label text
+                "data"=>User::get(), // [ONLY FOR SELECT COLUMN]
+                "data_key"=>"id", // value key
+                "data_value"=>"full_name", // text key
+                "options"=>[ // optional
+                    "required"=>false // optional make input optional
+                    // ... and other "collective" options and dom parameters can be used in here
+                ]
+            ],
+            "full_name"=>[
+                "type"=>"text",
+                "label"=>"İsim",
+            ],
+            "email"=>[
+                "type"=>"text",
+                "label"=>"E-posta",
+            ],
+            "password"=>[
+                "type"=>"password",
+                "label"=>"Şifre",
+            ],
+        ];
+    }
 
+```
 ## Change log
 
 Please see the [changelog](changelog.md) for more information on what has changed recently.
