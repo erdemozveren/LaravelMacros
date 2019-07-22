@@ -34,7 +34,7 @@ class Form
             $placeholder=isset($val["placeholder"]) ? $val["placeholder"] : null;
             switch ($val["type"]) {
                 case 'select':
-                   $form.=cForm::{"c".ucfirst($val["type"])}($key,$val["label"],$val["data"],$val["data_key"],$val["data_value"],$inputOptions);
+                   $form.=cForm::{"c".ucfirst($val["type"])}($key,$val["label"],$val["data"],$inputOptions);
                 break;
                 case 'password':
                    $form.=cForm::{"c".ucfirst($val["type"])}($key,$val["label"],$placeholder,$inputOptions);

@@ -41,9 +41,18 @@ class FormFields extends Command
         $g=new Generator($table);
         $this->info("Generating formfield function for <bg=blue>".$table."</>");
         $rules=$g->getFormFields();
+        $exclude=explode(",",$this->askWithCompletion("(optional) Column names to exclude (comma seperated)",array_keys($rules)));
+        // exclude given fields
+        if(!empty($exclude)) {
+            foreach ($exclude as $value) {
+                $this->error("Excluded : ".$value);
+                unset($rules[$value]);
+            }
+        }
         $data=[];
         foreach ($rules as $key => $val) {
             $colData=[];
+            $colData["label"]=ucfirst($key);
             switch($val["type"]) {
                 case "varchar":
                     $colData["type"]="text";
@@ -56,9 +65,14 @@ class FormFields extends Command
                 break;
                 case "boolean":
                     $colData["type"]="checkbox";
+                    $colData["value"]="1";
+                    $colData["checked"]=null;
                 break;
                 case "text":
                     $colData["type"]="textarea";
+                break;
+                case "int":
+                    $colData["type"]="number";
                 break;
                 default:
                 $colData["type"]=$val["type"];
@@ -80,13 +94,17 @@ class FormFields extends Command
 
     function printAll($a) {
        foreach($a as $key=>$val) {
-           echo "\n\"".$key.'"=>';
+           echo "\n\t\"".$key.'"=>';
            if(is_array($val)) {
                echo "[";
                $this->printAll($val);
-               echo "],\n";
+               echo "\n\t],\n";
            }else {
-               echo "\t\"".$val."\",";
+               if(preg_match("(false|null)",$val) == 1) {
+                   echo $val.",";
+               }else {
+                echo "\"".$val."\",";
+               }
            }
        }
     }

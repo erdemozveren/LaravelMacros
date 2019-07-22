@@ -40,7 +40,7 @@ class GetRules extends Command
         $table=$this->argument("table");
         $g=new Generator($table);
         $this->info("Generating validating rules for <bg=blue>".$table."</>");
-        $rules=$g->validationRules()["rules"];
+        $rules=$g->validationRules()["rules"];        
         $this->info('<fg=red>protected $rules = [</>');
         foreach ($rules as $key => $value) {
             $this->line("\t<fg=cyan>\"$key\"</>=><fg=cyan>\"$value\"</>,");

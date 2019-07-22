@@ -55,20 +55,7 @@ Form::macro('cSubmit',function($label="Submit",$class="") {
     return 
     Form::submit($label,['class'=>'btn '.$class]);
 });
-Form::macro('cSelect',function($name,$label,$data,$key=null,$value=null,$options=[]) {    
-    
-    if($key!=null){
-    $newData=[];
-    foreach($data as $dKey=>$item) {
-        if(is_string($dKey)) {
-            foreach ($item as $subItem) {            
-                $newData[$dKey][$subItem[$key]]=$subItem[$value];
-            }
-        }else {            
-            $newData[$item[$key]]=$item[$value];
-        }
-    }
-    }
-    return Form::cFg($name,Form::label($name, $label,config('laravelmacros.form.label')).    
-    Form::select($name, $key!=null ? $newData:$data, null, array_merge(config('laravelmacros.form.options'),$options)));
+Form::macro('cSelect',function($name,$label,$data,$options=[]) {
+    return Form::cFg($name,Form::label($name, $label,config('laravelmacros.form.label')).
+    Form::select($name,$data, null, array_merge(config('laravelmacros.form.options'),$options)));
 });
