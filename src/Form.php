@@ -57,19 +57,29 @@ class Form
         return $form;
     }
     // disabled for now
-    // public static function proccessRequest(Model $model,Request $request,array $options=[]) {
-    //     if(!method_exists($model,"formFields")) throw new ErrorException("Model do not have formField method.Check Docs about formFields method.");
-    //     $fields=array_replace_recursive($model->formFields(),$options);
-    //     // exclude given fields
-    //     if(isset($options["_exclude"])) {
-    //         foreach ($options["_exclude"] as $value) {
-    //             unset($fields[$value]);
-    //         }
-    //     }
-    //     $inputs = $request->only(array_keys($fields));
-    //     $validator = Validator::make($inputs,$rules);
-    //     foreach ($inputs as $key => $value) {
-    //         $model->{$key} = $value;
-    //     }
-    // }
+    public static function handleForm(Model $model,Request $request,array $options=[]) {
+        if(!method_exists($model,"formFields")) throw new ErrorException("Model do not have formField method.Check Docs about formFields method.");
+        if(!method_exists($model,"formValidationRules")) throw new ErrorException("Model do not have validation rules check Docs about formValidationRules method.");
+        $fields=array_replace_recursive($model->formFields(),$options);
+        // unset wildcard
+        unset($fields["*"]);
+        // exclude given fields
+        if(isset($options["_exclude"])) {
+            foreach ($options["_exclude"] as $value) {
+                unset($fields[$value]);
+            }
+        }
+        $inputs = $request->only(array_keys($fields));
+        $rules=$model->formValidationRules();
+        if($rules!=false) {
+            $validator = Validator::make($inputs,$rules);
+            if($validator->fails()) {
+                return ["errors"=>$validator->errors()];
+            }
+        }
+        foreach ($inputs as $key => $value) {
+            $model->{$key} = $value;
+        }
+        return true;
+    }
 }

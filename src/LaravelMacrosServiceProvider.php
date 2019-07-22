@@ -6,6 +6,14 @@ use Illuminate\Support\ServiceProvider;
 
 class LaravelMacrosServiceProvider extends ServiceProvider
 {
+
+    /**
+     * Commands
+     */
+    protected $commands = [
+        "erdemozveren\LaravelMacros\Commands\GetRules",
+        "erdemozveren\LaravelMacros\Commands\FormFields",
+    ];
     /**
      * Perform post-registration booting of services.
      *
@@ -36,7 +44,7 @@ class LaravelMacrosServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(__DIR__.'/../config/laravelmacros.php', 'laravelmacros');
-
+        $this->commands($this->commands);
         // Register the service the package provides.
         $this->app->singleton('laravelmacros', function ($app) {
             return new LaravelMacros;

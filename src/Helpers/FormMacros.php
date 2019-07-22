@@ -9,37 +9,37 @@ Form::macro('cFg',function($name,$content) {
     .'</div>';
 });
 Form::macro('cText',function($name,$label,$placeholder=null,$options=[]) {
-    return Form::cFg($name,Form::label($name, $label).
-    Form::text($name,null,array_merge(['class'=>'form-control', 'placeholder'=>$placeholder, 'required' => 'required'],$options)));
+    return Form::cFg($name,Form::label($name, $label,config('laravelmacros.form.label')).
+    Form::text($name,null,array_merge(['placeholder'=>$placeholder],config('laravelmacros.form.options'),$options)));
 });
 
 Form::macro('cColor',function($name,$label,$options=[]) {
-    return Form::cFg($name,Form::label($name, $label).'&nbsp;&nbsp;'.$this->input('color', $name, null, $options));
+    return Form::cFg($name,Form::label($name, $label,config('laravelmacros.form.label')).'&nbsp;&nbsp;'.$this->input('color', $name, null, $options));
 });
 
 Form::macro('cTextarea',function($name,$label,$placeholder=null,$options=[]) {
-    return Form::cFg($name,Form::label($name, $label).
-    Form::textarea($name,null,array_merge(['class'=>'form-control', 'placeholder'=>$placeholder, 'required' => 'required'],$options)));
+    return Form::cFg($name,Form::label($name, $label,config('laravelmacros.form.label')).
+    Form::textarea($name,null,array_merge(['placeholder'=>$placeholder],config('laravelmacros.form.options'),$options)));
 });
 
 Form::macro('cNumber',function($name,$label,$options=[]) {
-    return Form::cFg($name,Form::label($name, $label).
-    Form::number($name,null,array_merge(['class'=>'form-control', 'required' => 'required'],$options)));
+    return Form::cFg($name,Form::label($name, $label,config('laravelmacros.form.label')).
+    Form::number($name,null,array_merge(config('laravelmacros.form.options'),$options)));
 });
 
 Form::macro('cEmail',function($name,$label,$placeholder=null,$options=[]) {
-    return Form::cFg($name,Form::label($name, $label).
-    Form::email($name,null,array_merge(['class'=>'form-control', 'placeholder'=>$placeholder, 'required' => 'required'],$options)));
+    return Form::cFg($name,Form::label($name, $label,config('laravelmacros.form.label')).
+    Form::email($name,null,array_merge(['placeholder'=>$placeholder],config('laravelmacros.form.options'),$options)));
 });
 
 Form::macro('cPassword',function($name,$label,$placeholder="*******",$options=[]) {
-    return Form::cFg($name,Form::label($name, $label).
-    Form::password($name,array_merge(['class'=>'form-control', 'placeholder'=>$placeholder, 'required' => 'required'],$options)));
+    return Form::cFg($name,Form::label($name, $label,config('laravelmacros.form.label')).
+    Form::password($name,array_merge(['placeholder'=>$placeholder],config('laravelmacros.form.options'),$options)));
 });
 
 Form::macro('cFile',function($name,$label,$options=[]) {
-    return Form::cFg($name,Form::label($name, $label).
-    Form::file($name,array_merge(['class'=>'form-control','required' => 'required'],$options)));
+    return Form::cFg($name,Form::label($name, $label,config('laravelmacros.form.label')).
+    Form::file($name,array_merge(config('laravelmacros.form.options'),$options)));
 });
 
 Form::macro('cCheckbox',function($name,$label,$value=1,$checked=null) {
@@ -47,7 +47,7 @@ Form::macro('cCheckbox',function($name,$label,$value=1,$checked=null) {
 });
 
 Form::macro('cRadio',function($name,$label,$value,$checked=null) {
-    return Form::label($name, $label).
+    return Form::label($name, $label,config('laravelmacros.form.label')).
     Form::radio($name,$value,$checked);
 });
 
@@ -69,6 +69,6 @@ Form::macro('cSelect',function($name,$label,$data,$key=null,$value=null,$options
         }
     }
     }
-    return Form::cFg($name,Form::label($name, $label).    
-    Form::select($name, $key!=null ? $newData:$data, null, array_merge(['class' => 'form-control'],$options)));
+    return Form::cFg($name,Form::label($name, $label,config('laravelmacros.form.label')).    
+    Form::select($name, $key!=null ? $newData:$data, null, array_merge(config('laravelmacros.form.options'),$options)));
 });
