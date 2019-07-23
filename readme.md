@@ -25,7 +25,7 @@ this package add Laravel collective macros to get things easier,you can use it b
 
 `Form::text('email', 'example@gmail.com') --> Form::cText('email', 'example@gmail.com')`
 ## Usage
-###Form Builder
+### Form Builder
 add formFields function to model
 ```php
 public function formFields() {
