@@ -37,17 +37,36 @@ class FormFields extends Command
      */
     public function handle()
     {
+    
         $table=$this->argument("table");
         $g=new Generator($table);
-        $this->info("Generating formfield function for <bg=blue>".$table."</>");
+        $this->info("Generating formfield function for <bg=blue>".$table."</>\n");
         $rules=$g->getFormFields();
-        $exclude=explode(",",$this->askWithCompletion("(optional) Column names to exclude (comma seperated)",array_keys($rules)));
+        $field_names=collect($rules)->keys()->toArray();
+        
+        $this->line("Field Names : <bg=blue>".implode("</>,<bg=blue>",$field_names)."</>");
+        $exclude=explode(",",$this->anticipate("(optional) Column names to exclude (comma seperated)",$field_names));
         // exclude given fields
         if(!empty($exclude)) {
             foreach ($exclude as $value) {
-                $this->error("Excluded : ".$value);
                 unset($rules[$value]);
             }
+        }
+        $relationNames=[];
+        $askRelation=1;
+        if($this->confirm("Do you want to add a relation input (selectbox)",false)) { //default is false
+        $this->comment("\t\tRELATION MANAGER");
+        while($askRelation) {
+            $relName=$this->anticipate("Column name",$field_names);
+            if(empty($relName))
+            $askRelation=0;
+            $relData=$this->anticipate("Data Source (e.g. App\\User::pluck('first_name','id')",$field_names);
+            $rules[$relName]["data"]=">".$relData;
+            $rules[$relName]["type"]="select"; // make it select
+            if(!$this->confirm("Do you want to add another one ?",false)) { //default is false
+                $askRelation=0;
+            }
+        }
         }
         $data=[];
         foreach ($rules as $key => $val) {
@@ -74,6 +93,8 @@ class FormFields extends Command
                 case "int":
                     $colData["type"]="number";
                 break;
+                case "select":
+                    $colData["data"]=$val["data"];
                 default:
                 $colData["type"]=$val["type"];
                 break;
@@ -81,7 +102,7 @@ class FormFields extends Command
             if($val["required"]) {
                 $colData["options"]["required"]="required";
             }else {
-                $colData["options"]["required"]="false";
+                $colData["options"]["required"]=">false";
             }
             $rules[$key]=$colData;
         }
@@ -100,10 +121,10 @@ class FormFields extends Command
                $this->printAll($val);
                echo "\n\t],\n";
            }else {
-               if(preg_match("(false|null)",$val) == 1) {
-                   echo $val.",";
+               if(substr($val,0,1)==">"){ // act as pure php 
+                    echo substr($val,1).",";
                }else {
-                echo "\"".$val."\",";
+                    echo "\"".$val."\",";
                }
            }
        }

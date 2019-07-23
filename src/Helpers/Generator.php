@@ -85,7 +85,7 @@ class Generator {
       return ["rules"=>$rules,"string"=>$s];
   }
 
-  public function getFormFields() {
+  public function getFormFields($relations=[]) {
     $tb = DB::select('DESCRIBE '.$this->table);
     $data=[];
     $br="\n";
