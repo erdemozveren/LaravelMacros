@@ -16,70 +16,77 @@ Via Composer
 $ composer require erdemozveren/laravelmacros
 ```
 
+## Getting Started
+
+`LaravelMacros` aims to build simple skeleton for forms and form proccess easy
+To getting started add in your model `use erdemozveren\LaravelMacros\Traits\FormBuilderTrait;` then in class use it as trait `use FormBuilderTrait;` now you ready to continue!
+this package add Laravel collective macros to get things easier,you can use it by just simply add "c" to start and Upper case next letter,like this;
+`Form::text('email', 'example@gmail.com') --> Form::cText('email', 'example@gmail.com')`
 ## Usage
 ###Form Builder
-in your model file
-```use erdemozveren\LaravelMacros\Traits\FormBuilderTrait;```
-in model class 
+add formFields function to model
+```php
+public function formFields() {
+    return [
+        "*"=>[ // wildcard will be applied to all elements 
+            "options"=>
+            ["style"=>"color:red!important"]
+        ],
+        "parent_id"=>[ // "parent_id" is the name attribute
+            "type"=>"select", // input type (e.g. "select" will look for "cSelect")
+            "label"=>"Parent", // label text
+            "data"=>User::pluck('full_name','id'), // [ONLY FOR select] you can write any data source that laravel collective accepts
+            "options"=>[ // optional
+                "required"=>false // optional make input optional
+                // ... and other "laravel collective" options and dom parameters can be used in here
+            ]
+        ],
+        "full_name"=>[
+            "type"=>"text",
+            "label"=>"Full Name",
+        ],
+        "email"=>[
+            "type"=>"text",
+            "label"=>"E-mail",
+        ],
+        "password"=>[
+            "type"=>"password",
+            "label"=>"Password",
+        ],
+    ];
+}
 ```
-use FormBuilderTrait;
-// Form fields
-    public function formFields() {
-        return [
-            "*"=>[ // wildcard will be applied to all elements 
-                "options"=>
-                ["style"=>"color:red!important"]
-            ],
-            "parent_id"=>[ // "parent_id" is the name attribute
-                "type"=>"select", // input type
-                "label"=>"Parent", // label text
-                "data"=>User::get(), // [ONLY FOR SELECT COLUMN]
-                "data_key"=>"id", // value key
-                "data_value"=>"full_name", // text key
-                "options"=>[ // optional
-                    "required"=>false // optional make input optional
-                    // ... and other "collective" options and dom parameters can be used in here
-                ]
-            ],
-            "full_name"=>[
-                "type"=>"text",
-                "label"=>"İsim",
-            ],
-            "email"=>[
-                "type"=>"text",
-                "label"=>"E-posta",
-            ],
-            "password"=>[
-                "type"=>"password",
-                "label"=>"Şifre",
-            ],
-        ];
-    }
-```
+### Generate Form 
+
 In your blade file you can use like this
-```
+```php
 {!!Form::model($model,['url'=>"/post"])!!}
 {!!$model->generateForm()!!}
 {!!Form::cSubmit()!!}
 {!!Form::close()!!}
 ```
 or
-```
+```php
 {!!Form::open(['url'=>"/post"])!!}
 {!!$model->generateForm()!!}
 {!!Form::cSubmit()!!}
 {!!Form::close()!!}
 ```
+if you want to exclude one or more elements in one form just pass option `_exclude` with array of fields name
+```php
+{!!$model->generateForm(["_exclude"=>["full_name","another_filed_name"]])!!}
+```
+### Auto generate form fields
+``` bash
+$ php artisan laravelmacros:formfields {tablename}
+```
+it will ask you some questions then give you `formFields` function code to copy into model file
+![](wiki/autogenerate.gif)
 
 ## Change log
 
 Please see the [changelog](changelog.md) for more information on what has changed recently.
 
-## Testing
-
-``` bash
-$ composer test
-```
 
 ## Contributing
 
@@ -91,12 +98,12 @@ If you discover any security related issues, please email author email instead o
 
 ## Credits
 
-- [author name][link-author]
+- [Erdem Özveren][link-author]
 - [All Contributors][link-contributors]
 
 ## License
 
-license. Please see the [license file](license.md) for more information.
+MIT
 
 [ico-version]: https://img.shields.io/packagist/v/erdemozveren/laravelmacros.svg?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/erdemozveren/laravelmacros.svg?style=flat-square
