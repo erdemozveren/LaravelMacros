@@ -20,7 +20,9 @@ $ composer require erdemozveren/laravelmacros
 
 `LaravelMacros` aims to build simple skeleton for forms and form proccess easy
 To getting started add in your model `use erdemozveren\LaravelMacros\Traits\FormBuilderTrait;` then in class use it as trait `use FormBuilderTrait;` now you ready to continue!
+
 this package add Laravel collective macros to get things easier,you can use it by just simply add "c" to start and Upper case next letter,like this;
+
 `Form::text('email', 'example@gmail.com') --> Form::cText('email', 'example@gmail.com')`
 ## Usage
 ###Form Builder
