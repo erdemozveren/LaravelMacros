@@ -107,14 +107,14 @@ If you discover any security related issues, please email author email instead o
 
 MIT
 
-[ico-version]: https://img.shields.io/packagist/v/erdemozveren/laravelmacros.svg?style=flat-square
-[ico-downloads]: https://img.shields.io/packagist/dt/erdemozveren/laravelmacros.svg?style=flat-square
-[ico-travis]: https://img.shields.io/travis/erdemozveren/laravelmacros/master.svg?style=flat-square
+[ico-version]: https://img.shields.io/packagist/v/erdemozveren/LaravelMacros.svg?style=flat-square
+[ico-downloads]: https://img.shields.io/packagist/dt/erdemozveren/LaravelMacros.svg?style=flat-square
+[ico-travis]: https://img.shields.io/travis/erdemozveren/LaravelMacros/master.svg?style=flat-square
 [ico-styleci]: https://styleci.io/repos/12345678/shield
 
-[link-packagist]: https://packagist.org/packages/erdemozveren/laravelmacros
-[link-downloads]: https://packagist.org/packages/erdemozveren/laravelmacros
-[link-travis]: https://travis-ci.org/erdemozveren/laravelmacros
+[link-packagist]: https://packagist.org/packages/erdemozveren/LaravelMacros
+[link-downloads]: https://packagist.org/packages/erdemozveren/LaravelMacros
+[link-travis]: https://travis-ci.org/erdemozveren/LaravelMacros
 [link-styleci]: https://styleci.io/repos/12345678
 [link-author]: https://github.com/erdemozveren
 [link-contributors]: ../../contributors
