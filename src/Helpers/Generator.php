@@ -1,5 +1,5 @@
 <?php
-namespace erdemozveren\LaravelMacros\Helpers;
+namespace erdemozveren\laravelmacros\Helpers;
 
 use Illuminate\Support\Facades\DB;
 

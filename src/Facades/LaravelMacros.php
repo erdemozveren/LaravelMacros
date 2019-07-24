@@ -1,10 +1,10 @@
 <?php
 
-namespace erdemozveren\LaravelMacros\Facades;
+namespace erdemozveren\laravelmacros\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
-class LaravelMacros extends Facade
+class laravelmacros extends Facade
 {
     /**
      * Get the registered name of the component.

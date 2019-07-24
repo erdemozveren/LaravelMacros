@@ -1,8 +1,8 @@
 <?php
 
-namespace erdemozveren\LaravelMacros;
+namespace erdemozveren\laravelmacros;
 
-class LaravelMacros
+class laravelmacros
 {
     // Build wonderful things
 }

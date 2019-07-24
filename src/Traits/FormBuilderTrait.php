@@ -1,7 +1,7 @@
 <?php
 
-namespace erdemozveren\LaravelMacros\Traits;
-use erdemozveren\LaravelMacros\Form;
+namespace erdemozveren\laravelmacros\Traits;
+use erdemozveren\laravelmacros\Form;
 trait FormBuilderTrait {
     public function formFields() {
         return [];

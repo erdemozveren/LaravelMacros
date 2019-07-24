@@ -10,7 +10,7 @@
         }
     ],
     "homepage": "https://github.com/erdemozveren/laravelmacros",
-    "keywords": ["Laravel", "LaravelMacros"],
+    "keywords": ["Laravel", "macro","formbuilder"],
     "require": {
         "illuminate/support": "~5",
         "php": "^7.1.3",
@@ -24,7 +24,7 @@
     },
     "autoload": {
         "psr-4": {
-            "erdemozveren\\LaravelMacros\\": "src/"
+            "erdemozveren\\laravelmacros\\": "src/"
         },
         "files":[
             "src/Helpers/helpers.php"
@@ -32,7 +32,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "erdemozveren\\LaravelMacros\\Tests\\": "tests"
+            "erdemozveren\\laravelmacros\\Tests\\": "tests"
         }
     },
     "extra": {
@@ -40,10 +40,10 @@
         },
         "laravel": {
             "providers": [
-                "erdemozveren\\LaravelMacros\\LaravelMacrosServiceProvider"
+                "erdemozveren\\laravelmacros\\laravelmacrosServiceProvider"
             ],
             "aliases": {
-                "LaravelMacros": "erdemozveren\\LaravelMacros\\Facades\\LaravelMacros",
+                "laravelmacros": "erdemozveren\\laravelmacros\\Facades\\laravelmacros",
                 "Form": "Collective\\Html\\FormFacade",
                 "Html": "Collective\\Html\\HtmlFacade"
             }

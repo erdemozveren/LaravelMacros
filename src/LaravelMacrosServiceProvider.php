@@ -1,18 +1,18 @@
 <?php
 
-namespace erdemozveren\LaravelMacros;
+namespace erdemozveren\laravelmacros;
 
 use Illuminate\Support\ServiceProvider;
 
-class LaravelMacrosServiceProvider extends ServiceProvider
+class laravelmacrosServiceProvider extends ServiceProvider
 {
 
     /**
      * Commands
      */
     protected $commands = [
-        "erdemozveren\LaravelMacros\Commands\GetRules",
-        "erdemozveren\LaravelMacros\Commands\FormFields",
+        "erdemozveren\laravelmacros\Commands\GetRules",
+        "erdemozveren\laravelmacros\Commands\FormFields",
     ];
     /**
      * Perform post-registration booting of services.
@@ -47,7 +47,7 @@ class LaravelMacrosServiceProvider extends ServiceProvider
         $this->commands($this->commands);
         // Register the service the package provides.
         $this->app->singleton('laravelmacros', function ($app) {
-            return new LaravelMacros;
+            return new laravelmacros;
         });
     }
 

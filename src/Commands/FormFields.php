@@ -1,9 +1,9 @@
 <?php
 
-namespace erdemozveren\LaravelMacros\Commands;
+namespace erdemozveren\laravelmacros\Commands;
 
 use Illuminate\Console\Command;
-use erdemozveren\LaravelMacros\Helpers\Generator;
+use erdemozveren\laravelmacros\Helpers\Generator;
 class FormFields extends Command
 {
     /**

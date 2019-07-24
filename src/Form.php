@@ -1,6 +1,6 @@
 <?php
 
-namespace erdemozveren\LaravelMacros;
+namespace erdemozveren\laravelmacros;
 
 use Illuminate\Database\Eloquent\Model;
 use ErrorException;

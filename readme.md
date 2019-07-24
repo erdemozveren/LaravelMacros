@@ -1,4 +1,4 @@
-# LaravelMacros
+# laravelmacros
 
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Total Downloads][ico-downloads]][link-downloads]
@@ -18,8 +18,8 @@ $ composer require erdemozveren/laravelmacros
 
 ## Getting Started
 
-`LaravelMacros` aims to build simple skeleton for forms and form proccess easy
-To getting started add in your model `use erdemozveren\LaravelMacros\Traits\FormBuilderTrait;` then in class use it as trait `use FormBuilderTrait;` now you ready to continue!
+`laravelmacros` aims to build simple skeleton for forms and form proccess easy
+To getting started add in your model `use erdemozveren\laravelmacros\Traits\FormBuilderTrait;` then in class use it as trait `use FormBuilderTrait;` now you ready to continue!
 
 this package add Laravel collective macros to get things easier,you can use it by just simply add "c" to start and Upper case next letter,like this;
 
