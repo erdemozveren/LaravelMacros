@@ -8,10 +8,10 @@ use Collective\Html\FormFacade as cForm;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class Form
+class FormBuilder
 {
     // Build form from given model with some options
-    public static function buildFromModel(Model $model,array $options=[]) {
+    public static function fromModel($model,array $options=[]) {
         if(!method_exists($model,"formFields")) throw new ErrorException("Model do not have formField method.Check Docs about formFields method.");
         $options=array_replace_recursive($model->formFields(),$options);
         $form="";
@@ -41,7 +41,7 @@ class Form
                 break;
                 case 'checkbox':
                 case 'radio':
-                   $form.=cForm::{"c".ucfirst($val["type"])}($key,$val["label"],$val["value"],$val["checked"]);
+                   $form.=cForm::{"c".ucfirst($val["type"])}($key,$val["label"],$val["value"],null); // removed $val["checked"] for unwanted results
                 break;
                 case 'color':
                 case 'number':

@@ -85,7 +85,7 @@ class FormFields extends Command
                 case "boolean":
                     $colData["type"]="checkbox";
                     $colData["value"]="1";
-                    $colData["checked"]=null;
+                    $colData["checked"]=">null";
                 break;
                 case "text":
                     $colData["type"]="textarea";
