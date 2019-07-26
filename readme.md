@@ -23,7 +23,11 @@ Via Composer
 ``` bash
 $ composer require erdemozveren/laravelmacros
 ```
-
+For customization, first publish config file
+``` bash
+$ php artisan vendor:publish --provider="erdemozveren\laravelmacros\LaravelMacrosServiceProvider" --tag=config
+```
+Now you can edit default configuration for inputs,settings etc.
 ## Getting Started
 
 `laravelmacros` aims to build simple skeleton for forms and form proccess easy
