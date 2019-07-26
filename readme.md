@@ -8,6 +8,14 @@
 I'm sick of doing same things on every project,so i made package with some handful shourtcuts.
 > Not stable for production
 
+- [Installation](#installation)
+- [Getting Started](#getting-started)
+### Usage
+- [Form Builder](#form-builder)
+- [Generate Form](#generate-form)
+- [Auto generate form fields](#auto-generate-form-fields)
+- [Form Macros](#form-macros)
+
 ## Installation
 
 Via Composer
@@ -84,6 +92,43 @@ $ php artisan laravelmacros:formfields {tablename}
 ```
 it will ask you some questions then give you `formFields` function code to copy into model file
 ![](wiki/autogenerate.gif)
+
+### Form Macros
+These macros extended from `laravel collective` and can be used in model binding too.
+
+Value of the input will be (in order) ;
+1. Session Flash Data ([Old Input](https://laravel.com/docs/requests#old-input))
+2. Data From Current [Request](https://laravel.com/docs/requests) (via `Request::input` method)
+3. Explicitly Passed Value
+4. Model Attribute Data
+
+```php
+// variable names stand for paramaters with default values
+
+Form::cText($name,$label,$placeholder=null,$options=[]);
+
+Form::cColor($name,$label,$options=[]);
+
+Form::cTextarea($name,$label,$placeholder=null,$options=[]);
+
+Form::cNumber($name,$label,$options=[]);
+
+Form::cEmail($name,$label,$placeholder=null,$options=[]);
+
+Form::cPassword($name,$label,$placeholder="*******",$options=[]);
+
+Form::cFile($name,$label,$options=[]);
+
+Form::cCheckbox($name,$label,$value=1,$checked=null);
+
+Form::cRadio($name,$label,$value,$checked=null);
+
+Form::cSubmit($label="Submit",$class="");
+
+Form::cSelect($name,$label,$data,$options=[]);
+
+```
+
 
 ## Change log
 
