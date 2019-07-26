@@ -4,7 +4,7 @@ namespace erdemozveren\laravelmacros;
 
 use Illuminate\Support\ServiceProvider;
 
-class laravelmacrosServiceProvider extends ServiceProvider
+class LaravelMacrosServiceProvider extends ServiceProvider
 {
 
     /**
@@ -71,7 +71,7 @@ class laravelmacrosServiceProvider extends ServiceProvider
         // Publishing the configuration file.
         $this->publishes([
             __DIR__.'/../config/laravelmacros.php' => config_path('laravelmacros.php'),
-        ], 'laravelmacros.config');
+        ], 'config');
 
         // Publishing the views.
         /*$this->publishes([
