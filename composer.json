@@ -12,12 +12,12 @@
     "homepage": "https://github.com/erdemozveren/laravelmacros",
     "keywords": ["Laravel", "macro","formbuilder"],
     "require": {
-        "illuminate/support": "~5",
+        "illuminate/support": "^5",
         "php": "^7.1.3",
         "laravelcollective/html": "^5.8"
     },
     "require-dev": {
-        "phpunit/phpunit": "~7.0",
+        "phpunit/phpunit": "^7.0",
         "mockery/mockery": "^1.1",
         "orchestra/testbench": "~3.0",
         "sempro/phpunit-pretty-print": "^1.0"
