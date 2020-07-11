@@ -3,6 +3,7 @@ namespace erdemozveren\laravelmacros\Helpers;
 
 use Illuminate\Support\Facades\DB;
 
+use erdemozveren\laravelmacros\FormBuilder;
 class Generator {
   public $table;
 
@@ -85,7 +86,7 @@ class Generator {
       return ["rules"=>$rules,"string"=>$s];
   }
 
-  public function getFormFields($relations=[]) {
+  public function getFormFields() {
     $tb = DB::select('DESCRIBE '.$this->table);
     $data=[];
     $br="\n";
@@ -132,5 +133,64 @@ class Generator {
         $data[$v->Field]=$columnData;
     }
       return $data;
+  }
+  public function getFormFieldMethod($relations=null) {
+      $rules=$this->getFormFields();
+      if($relations!=null) {
+        foreach ($relations as $value) {
+            if(array_key_exists($value["name"],$rules)==false) return "Relation Error,there is no column with name : ".$value["name"];
+            $rules[$value["name"]]["type"]="select";
+            $rules[$value["name"]]["data"]=">".$value["source"];
+        }
+    }
+    foreach ($rules as $key => $val) {
+        $colData=[];
+        switch($val["type"]) {
+            case "varchar":
+                $colData["type"]="text";
+            break;
+            case "enum":
+                $colData["type"]="select";
+                foreach(explode(",",$val["in_vals"]) as $v) {
+                    $colData["data"][$v]=ucfirst($v);
+                }
+            break;
+            case "boolean":
+                $colData["type"]="checkbox";
+                $colData["value"]="1";
+                $colData["checked"]=">null";
+            break;
+            case "text":
+                $colData["type"]="textarea";
+            break;
+            case "int":
+                $colData["type"]="number";
+            break;
+            case "select":
+            if(substr($val["data"],0,1)==">") { // act as php
+                $colData["data"]=substr($val["data"],1);
+            }else {                
+                $colData["data"]=$val["data"];
+            }
+                $colData["type"]=$val["type"];
+            break;
+            default:
+            $colData["type"]=$val["type"];
+            break;
+        }
+        if($val["required"]) {
+            $colData["options"]["required"]="required";
+        }else {
+            $colData["options"]["required"]=">false";
+        }
+        $colData["label"]=ucfirst($key);
+        $rules[$key]=$colData;
+    }
+    return $rules;
+  }
+  public function getPreviewForm($fields=null) {
+      if($fields==null) return "";
+    //  foreach($fields as $val) // burda kladım zaten hata verir
+    return FormBuilder::generate($fields);
   }
 }

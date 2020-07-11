@@ -22,7 +22,7 @@ class LaravelMacrosServiceProvider extends ServiceProvider
     public function boot()
     {
         // $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'erdemozveren');
-        // $this->loadViewsFrom(__DIR__.'/../resources/views', 'erdemozveren');
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'laravelmacros');
         // $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
         // $this->loadRoutesFrom(__DIR__.'/routes.php');
 

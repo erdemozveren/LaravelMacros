@@ -14,17 +14,21 @@ class FormBuilder
     public static function fromModel($model,array $options=[]) {
         if(!method_exists($model,"formFields")) throw new ErrorException("Model do not have formField method.Check Docs about formFields method.");
         $options=array_replace_recursive($model->formFields(),$options);
+        return self::generate($options);
+    }
+    
+    public static function generate($fields) {
         $form="";
         $extraOptions=[];
         // wildCard will be applied all inputs
-        $wildCard=isset($options["*"]) ? $options["*"]:[];
+        $wildCard=isset($fields["*"]) ? $fields["*"]:[];
         // exclude given elements
-        if(isset($options["_exclude"])) {
-            foreach ($options["_exclude"] as $value) {
-                unset($options[$value]);
+        if(isset($fields["_exclude"])) {
+            foreach ($fields["_exclude"] as $value) {
+                unset($fields[$value]);
             }
         }
-        foreach ($options as $key => $val) {
+        foreach ($fields as $key => $val) {
             if($key=="*"||$key=="_exclude") continue;
             if(!empty($wildCard)) {
                 $val=array_replace_recursive($val,$wildCard);
@@ -50,7 +54,14 @@ class FormBuilder
                 break;
                 // other elements share the same parameters.
                 default:
-                $form.=cForm::{"c".ucfirst($val["type"])}($key,$val["label"],$placeholder,$inputOptions);
+                try {
+
+                    $form.=cForm::{"c".ucfirst($val["type"])}($key,$val["label"],$placeholder,$inputOptions);
+                }catch(\Exception $err) {
+                    if(config('app.debug')==false) { // only show error on debug
+                        dump("Error on generating form",$err,$key,$val);
+                    }
+                }
                 break;
             }
         }
