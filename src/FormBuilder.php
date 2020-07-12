@@ -10,13 +10,13 @@ use Illuminate\Support\Facades\Validator;
 
 class FormBuilder
 {
-    // Build form from given model with some options
+    // Build a form from given model with options
     public static function fromModel($model,array $options=[]) {
         if(!method_exists($model,"formFields")) throw new ErrorException("Model do not have formField method.Check Docs about formFields method.");
         $options=array_replace_recursive($model->formFields(),$options);
         return self::generate($options);
     }
-    
+    // Convert Form Fields to Collective Form Elements
     public static function generate($fields) {
         $form="";
         $extraOptions=[];

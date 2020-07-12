@@ -188,9 +188,8 @@ class Generator {
     }
     return $rules;
   }
-  public function getPreviewForm($fields=null) {
+  public function getPreviewForm($fields=null) { // in progress
       if($fields==null) return "";
-    //  foreach($fields as $val) // burda kladım zaten hata verir
     return FormBuilder::generate($fields);
   }
 }

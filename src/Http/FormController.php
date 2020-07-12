@@ -16,7 +16,7 @@ class FormController extends BaseController
         try {
             $tables=collect(DB::select("SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_SCHEMA='".env('DB_DATABASE')."'"))->pluck("TABLE_NAME","TABLE_NAME");
         }catch(\Exception $err) {
-
+            throw new $err;
         }
         return view("laravelmacros::formfields_form",compact("tables"));
     }

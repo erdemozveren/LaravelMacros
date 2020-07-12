@@ -5,8 +5,8 @@
 [![Build Status][ico-travis]][link-travis]
 [![StyleCI][ico-styleci]][link-styleci]
 
-I'm sick of doing same things on every project,so i made package with some handful shourtcuts.
-> Not stable for production
+I'm lazy,so i made package with some handful shourtcuts for Laravel.
+> Compatibility:Laravel 5.8+ , Not stable for production
 
 - [Installation](#installation)
 - [Getting Started](#getting-started)
